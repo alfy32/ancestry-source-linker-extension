@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html style=''>
+<head>
+  <script src='popup.js'></script>
+</head>
+<style>
+  input, textarea {
+    width: 100%;
+  }
+</style>
+<body style="width:500px;">
+  <div id='message'>Injecting Script....</div>
+  <div>
+    <h2>Create a Source</h2>
+    <h4>Identify the record you have found. This will be called a "Source."</h3>
+    <p>Source Title (Required)</p>
+    <input id='title'/>
+    <p>Web Page (Link to the Record)</p>
+    <input id='uri'/>
+    <p>Where the Record Is Found (Citation)</p>
+    <textarea id="citation" rows='4'></textarea> 
+    <p>Describe the Record (Notes)</p>
+    <textarea id='notes'></textarea>
+    <br/>
+    <br/>
+    <input id='submit' type="submit"></input>
+  </div>
+</body>
+</html>
