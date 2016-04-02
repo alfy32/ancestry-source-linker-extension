@@ -4,7 +4,7 @@ var Sources = {};
 
   console.log("Loading source.js");
 
-  var cookieHost = "https://beta.familysearch.org",
+  var cookieHost = "https://familysearch.org",
       ctHost = cookieHost + "/ct",
       linksHost = cookieHost + "/links",
       locale = "en",
