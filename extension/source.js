@@ -1,8 +1,12 @@
+var Sources = {};
+
 (function () {
 
+  console.log("Loading source.js");
+
   var cookieHost = "https://beta.familysearch.org",
-      ctHost = "https://beta.familysearch.org/ct",
-      linksHost = "https://beta.familysearch.org/links",
+      ctHost = cookieHost + "/ct",
+      linksHost = cookieHost + "/links",
       locale = "en",
       sessionId;
 
@@ -14,6 +18,23 @@
       postSource(request.source, request.personIds, request.reason, request.addToSourceBox);      
     }
   });
+
+  // Example data:
+  // {
+  //   source: {
+  //     title: "title",
+  //     citation: "citation",
+  //     uri: "uri",
+  //     notes: "notes" 
+  //   },
+  //   personIds: [personId, ...],
+  //   reason: "reason",
+  //   addToSourceBox: <true|false>
+  // }
+  Sources.createSource = function(data) {
+    console.log("Creating a source...");
+    postSource(data.source, data.personIds, data.reason, data.addToSourceBox);
+  }
 
   // This is to get the sessionId from family search.
   chrome.cookies.get({
@@ -117,6 +138,7 @@
   }
 
   function handleReferenceResponse(referenceId) {
+    message.innerText = "Reference added..." + referenceId;
     console.log("Reference added...", referenceId);
   }
 

@@ -2,10 +2,15 @@
 <html style=''>
 <head>
   <script src='popup.js'></script>
+  <script src='source.js'></script>
 </head>
 <style>
-  input, textarea {
+  input[type="text"], textarea {
     width: 100%;
+  }
+
+  div {
+    margin-bottom: 12px;
   }
 </style>
 <body style="width:500px;">
@@ -13,17 +18,48 @@
   <div>
     <h2>Create a Source</h2>
     <h4>Identify the record you have found. This will be called a "Source."</h3>
-    <p>Source Title (Required)</p>
-    <input id='title'/>
-    <p>Web Page (Link to the Record)</p>
-    <input id='uri'/>
-    <p>Where the Record Is Found (Citation)</p>
-    <textarea id="citation" rows='4'></textarea> 
-    <p>Describe the Record (Notes)</p>
-    <textarea id='notes'></textarea>
-    <br/>
-    <br/>
-    <input id='submit' type="submit"></input>
+
+    <form>
+      <div>
+        <label for="title">Source Title (Required)</label>
+        <input id="title" type="text" placeholder="Example: England, Death Certificate of Hugh S. Smith - (1832-1912)"/>
+      </div>
+
+      <div>
+        <label for="uri">Web Page (Link to the Record)</label>
+        <input id="uri" type="text" placeholder=""/>
+      </div>
+
+      <div>
+        <label for="citation">Where the Record Is Found (Citation)</label>
+        <textarea id="citation" rows="4" placeholder=""></textarea>
+      </div>
+
+      <div>
+        <label for="notes">Describe the Record (Notes)</label>
+        <textarea id="notes" rows="3" placeholder=""></textarea>
+      </div>
+
+      <div>
+        <label for="personIds">PersonIds (comma seperated list)</label>
+        <input id="personIds" type="text" placeholder=""/>
+      </div>
+
+      <div>
+        <label for="reason">Reason to Attach Source</label>
+        <input id="reason" type="text" placeholder="Explain why you attached this source to the individual."/>
+      </div>
+
+      <div>
+        <input id="addToSourceBox" type="checkbox"/>
+        <label for="addToSourceBox">Add Source to My Source Box</label>
+      </div>
+
+      <div>
+        <button id='submit' type="button">Submit</button>
+      </div>
+    </form>
+
   </div>
 </body>
 </html>

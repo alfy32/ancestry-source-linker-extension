@@ -57,10 +57,6 @@ function getCitation() {
 function getNotes() {
 	return 'notes';
 }
-// chrome.runtime.sendMessage({
-// 	action: "displayName",
-// 	source: getUserName()
-// });
 
 chrome.runtime.sendMessage({
 	action: "sourceInfo",
