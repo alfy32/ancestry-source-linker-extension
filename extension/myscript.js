@@ -30,10 +30,10 @@ function getBreadcrumb() {
 }
 
 function getPageAndImage() {
-	var image = getImage();
+	var page = getPage();
 
-	return 'Page: ' + getPage() + 
-		((!!image) ? ' Image: ' + image : ''); 
+	return 'Image: ' + getImage() + 
+		((!!page) ? ' Page: ' + page : ''); 
 }
 
 function getPage() {
