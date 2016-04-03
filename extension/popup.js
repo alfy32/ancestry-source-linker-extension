@@ -117,7 +117,7 @@
     }
 
     chrome.tabs.executeScript(null, {
-      file: "myscript.js"
+      file: "injected-script.js"
     }, function() {
       // If you try and inject into an extensions page or the webstore/NTP you'll get an error
       if (chrome.runtime.lastError) {
