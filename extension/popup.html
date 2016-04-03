@@ -3,56 +3,57 @@
 <head>
   <script src='popup.js'></script>
   <script src='source.js'></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <style>
+  body {
+    padding:10px 15px;
+  }
   input[type="text"], textarea {
     width: 100%;
   }
 
-  button {
-    width: 100%;
-    height:35px;
+  label {
+    font-size: 10pt;
   }
 
   div {
-    margin-bottom: 12px;
+    margin-bottom: 4px;
+  }
+
+  hr {
+    margin-bottom: 5px;
+    margin-top: 0px;
+  }
+
+  button {
+    margin-top: 10px;
   }
 </style>
 <body style="width:500px;">
-  <div id='message'>Injecting Script....</div>
   <div>
-    <h2>Create a Source</h2>
-    <h4>Identify the record you have found. This will be called a "Source."</h3>
+    <!-- <h2>Create a Source</h2> -->
+    <!-- <h4>Identify the record you have found. This will be called a "Source."</h3> -->
 
     <form>
       <div>
         <label for="title">Source Title (Required)</label>
-        <input id="title" type="text" placeholder="Example: England, Death Certificate of Hugh S. Smith - (1832-1912)"/>
+        <input class="form-control" id="title" type="text" placeholder="Example: England, Death Certificate of Hugh S. Smith - (1832-1912)"/>
       </div>
 
       <div>
         <label for="uri">Web Page (Link to the Record)</label>
-        <input id="uri" type="text" placeholder=""/>
+        <input class="form-control" id="uri" type="text" placeholder="" />
       </div>
 
       <div>
         <label for="citation">Where the Record Is Found (Citation)</label>
-        <textarea id="citation" rows="4" placeholder=""></textarea>
+        <textarea class="form-control" id="citation" rows="3" placeholder=""></textarea>
       </div>
 
       <div>
         <label for="notes">Describe the Record (Notes)</label>
-        <textarea id="notes" rows="5" placeholder=""></textarea>
-      </div>
-
-      <div>
-        <label for="personIds">PersonIds (comma seperated list)</label>
-        <input id="personIds" type="text" placeholder=""/>
-      </div>
-
-      <div>
-        <label for="reason">Reason to Attach Source</label>
-        <input id="reason" type="text" placeholder="Explain why you attached this source to the individual."/>
+        <textarea class="form-control" id="notes" rows="5" placeholder=""></textarea>
       </div>
 
       <div>
@@ -60,8 +61,20 @@
         <label for="addToSourceBox">Add Source to My Source Box</label>
       </div>
 
+      <hr>
+
       <div>
-        <button id='submit' type="button">Submit</button>
+        <label for="personIds">PersonIds (comma seperated list)</label>
+        <input class="form-control" id="personIds" type="text" placeholder=""/>
+      </div>
+
+      <div>
+        <label for="reason">Reason to Attach Source</label>
+        <input class="form-control" id="reason" type="text" placeholder="Explain why you attached this source to the individual."/>
+      </div>
+
+      <div>
+        <button id='submit' type="button" class="btn btn-block btn-primary"><span id='message'>Attatch</span></button>
       </div>
     </form>
 

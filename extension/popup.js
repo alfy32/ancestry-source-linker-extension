@@ -1,18 +1,25 @@
 (function () {
 
   chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.action == "displayName") {
-      message.innerText = 'Hello ' + request.source + '!' + '  ' + sessionId;
-      
-    }
-  });
-
-  chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "sourceInfo") {
-      message.innerText = "Source info read from page!";
-      
+      // message.innerText = "Source info read from page!";
       uri.value = request.uri;
       citation.value = request.citation;
+    } 
+    else if (request.action == "selectedText") {
+      console.log(personIds.value, request.selectedText);
+      // personIds.value += ", " + myTrim(request.selectedText);
+
+      chrome.storage.local.get({
+        "personIds" : ""
+      }, function(items) {
+        personIds.value = ((items.personIds.trim() != "") ? (items.personIds + ", ") : "") + myTrim(request.selectedText);
+        chrome.storage.local.set({
+          personIds: personIds.value
+        });
+      });
+
+
     }
   });
 

@@ -54,14 +54,27 @@ function getCitation() {
 		getPageAndImage();
 }
 
-function getNotes() {
-	return 'notes';
+
+function isFamilySearch() {
+	return window.location.hostname.indexOf("familysearch") >= 0;
 }
 
-chrome.runtime.sendMessage({
-	action: "sourceInfo",
-	title: getCollectionTitle(),
-	uri: getUri(),
-	citation: getCitation(),
-	notes: getNotes()
-});
+function isAncestry() {
+	return window.location.hostname.indexOf("ancestry") >= 0;
+}
+
+if (isAncestry()) {
+	chrome.runtime.sendMessage({
+		action: "sourceInfo",
+		title: getCollectionTitle(),
+		uri: getUri(),
+		citation: getCitation(),
+	});
+}
+
+if (isFamilySearch()) {
+	chrome.runtime.sendMessage({
+		action: "selectedText",
+		selectedText: window.getSelection().toString().trim()
+	});
+}

@@ -4,13 +4,15 @@ var Sources = {};
 
   console.log("Loading source.js");
 
-  var cookieHost = "https://beta.familysearch.org",
+  var cookieHost = "https://familysearch.org",
       ctHost = cookieHost + "/ct",
       linksHost = cookieHost + "/links",
       locale = "en",
       sessionId,
       personsToAttach = 0,
-      sourcesAttached = 0;
+      sourcesAttached = 0, 
+      sessionExpriedMesage = "Your FamilySearch session has expired",
+      noCookieMessage = "You are not logged into FamilySearch";
 
   // Add a listener that creates a source when called.
   chrome.runtime.onMessage.addListener(function(request, sender) {
@@ -52,8 +54,13 @@ var Sources = {};
       "name" : "fssessionid",
       "url" : cookieHost
     }, function (cookie) {
-      sessionId = cookie.value;
-      console.log("Your sessionId is: " + sessionId);
+      if (!cookie) {
+        Sources.statusUpdate(noCookieMessage);
+      }
+      else {
+        sessionId = cookie.value;
+        console.log("Your sessionId is: " + sessionId);
+      }
     }
   );
 
@@ -69,6 +76,9 @@ var Sources = {};
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
         handleSourceResponse(JSON.parse(xhttp.response), personIds, reason, addToSourceBox);
+      }
+      else if (xhttp.readyState == 4 && xhttp.status == 401) {
+        Sources.statusUpdate(sessionExpriedMesage);
       }
     };
 
@@ -127,6 +137,9 @@ var Sources = {};
       if (xhttp.readyState == 4 && xhttp.status == 204) {
         Sources.statusUpdate("Removed from source box...", sourceId);
       }
+      else if (xhttp.readyState == 4 && xhttp.status == 401) {
+        Sources.statusUpdate(sessionExpriedMesage);
+      }
     };
 
     xhttp.open("DELETE", linksHost + "/folder/sources/" + sourceId, true);
@@ -144,6 +157,9 @@ var Sources = {};
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState == 4 && xhttp.status == 201) {
         handleReferenceResponse(xhttp.getResponseHeader("X-Entity-ID"));
+      }
+      else if (xhttp.readyState == 4 && xhttp.status == 401) {
+        Sources.statusUpdate(sessionExpriedMesage);
       }
     };
     xhttp.open("POST", ctHost + "/persons/" + personId + "/references/reference", true);
