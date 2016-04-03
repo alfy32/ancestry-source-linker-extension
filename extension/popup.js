@@ -9,7 +9,7 @@
 
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "sourceInfo") {
-      message.innerText = "Source Info Added!";
+      message.innerText = "Source info read from page!";
       
       uri.value = request.uri;
       citation.value = request.citation;
@@ -44,6 +44,17 @@
     var personIds = document.querySelector('#personIds');
     var reason = document.querySelector('#reason');
     var addToSourceBox = document.querySelector('#addToSourceBox');
+
+    Sources.statusUpdate = function(status){
+      message.innerText = status;
+      console.log(status);
+    };
+
+    Sources.finishedAttaching = function() {
+      message.innerText = "All sources attached!";
+      console.log("Finished");
+      window.close();
+    }
 
     var submit = document.querySelector('#submit')
       .onclick = function() {

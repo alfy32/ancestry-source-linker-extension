@@ -4,20 +4,31 @@ var Sources = {};
 
   console.log("Loading source.js");
 
-  var cookieHost = "https://familysearch.org",
+  var cookieHost = "https://beta.familysearch.org",
       ctHost = cookieHost + "/ct",
       linksHost = cookieHost + "/links",
       locale = "en",
-      sessionId;
+      sessionId,
+      personsToAttach = 0,
+      sourcesAttached = 0;
 
   // Add a listener that creates a source when called.
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "create-source") {
-      console.log("Creating a source...");
+      Sources.statusUpdate("Creating a source...");
 
       postSource(request.source, request.personIds, request.reason, request.addToSourceBox);      
     }
   });
+
+  // This is the defaul logger. Override it if you want.
+  Sources.statusUpdate = function(message) {
+    console.log(message);
+  }
+
+  Sources.finishedAttaching = function() {
+    Sources.statusUpdate("Done attaching sources.");
+  }
 
   // Example data:
   // {
@@ -31,8 +42,8 @@ var Sources = {};
   //   reason: "reason",
   //   addToSourceBox: <true|false>
   // }
-  Sources.createSource = function(data) {
-    console.log("Creating a source...");
+  Sources.createSource = function(data, callback) {
+    Sources.statusUpdate("Creating a source...");
     postSource(data.source, data.personIds, data.reason, data.addToSourceBox);
   }
 
@@ -50,7 +61,9 @@ var Sources = {};
   function postSource(source, personIds, reason, addToSourceBox) {
     var xhttp;
 
-    console.log("Adding source to person ids", source, personIds, reason);
+    Sources.statusUpdate("Adding source to person ids", source, personIds, reason);
+    sourcesAttached = 0;
+    personsToAttach = getPersonCount(personIds);
 
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -75,10 +88,19 @@ var Sources = {};
     }));
   }
 
+  function getPersonCount(personIds) {
+    if (Array.isArray(personIds)) {
+      return personIds.length;
+    }
+    else {
+      return 1;
+    }
+  }
+
   // Handle the links response
   function handleSourceResponse(repsonse, personIds, reason, addToSourceBox) {
     var sourceId = repsonse.id;
-    console.log("Source added...", sourceId, personIds, reason, repsonse);
+    Sources.statusUpdate("Source added...", sourceId, personIds, reason, repsonse);
 
     if (!addToSourceBox) {
       removeFromSourceBox(sourceId);
@@ -98,12 +120,12 @@ var Sources = {};
   function removeFromSourceBox(sourceId) {
     var xhttp;
 
-    console.log("Removing from source box...", sourceId);
+    Sources.statusUpdate("Removing from source box...", sourceId);
 
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState == 4 && xhttp.status == 204) {
-        console.log("Removed from source box...", sourceId);
+        Sources.statusUpdate("Removed from source box...", sourceId);
       }
     };
 
@@ -116,7 +138,7 @@ var Sources = {};
   function postReference(personId, sourceId, reason) {
     var xhttp;
 
-    console.log("Posting reference...", personId, sourceId, reason);
+    Sources.statusUpdate("Posting reference...", personId, sourceId, reason);
 
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -138,8 +160,15 @@ var Sources = {};
   }
 
   function handleReferenceResponse(referenceId) {
-    message.innerText = "Reference added..." + referenceId;
-    console.log("Reference added...", referenceId);
+    sourcesAttached++;
+
+    Sources.statusUpdate("Reference added... " + referenceId + 
+      "(" + sourcesAttached + " of " + personsToAttach + ")"
+    );
+
+    if (sourcesAttached == personsToAttach) {
+      Sources.finishedAttaching();
+    }
   }
 
 })();
