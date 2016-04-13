@@ -78,12 +78,12 @@
    */
   if (isFamilySearch()) {
     chrome.runtime.sendMessage({
-      action: "selectedText",
-      selectedText: getPID()
+      action: "selectedPersonId",
+      personId: getPersonId()
     });
   }
 
-  function getPID() {
+  function getPersonId() {
     var matches = window.getSelection().toString()
         .match(/[A-z0-9]{4}-[A-z0-9]{3,4}/);
 
