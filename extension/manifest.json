@@ -1,12 +1,21 @@
 {
-  "name": "Get pages source",
-  "version": "0.3.1",
   "manifest_version": 2,
-  "description": "Get pages source from a popup",
+
+  "name": "Ancestry Source Linker",
+  "description": "Link your sources from Ancestry to FamilySearch",
+  "version": "0.3.2",
+
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "icon/icon.png",
     "default_popup": "popup.html"
   },
+
+  "icons" : {
+    "16": "icon/icon-16.png",
+    "48": "icon/icon-48.png",
+    "128": "icon/icon-128.png"
+  },
+  
   "permissions": [
     "activeTab",
     "storage", 
