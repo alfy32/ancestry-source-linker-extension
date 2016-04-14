@@ -1,0 +1,26 @@
+body {
+  padding: 10px 15px;
+  width: 500px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+}
+
+label {
+  font-size: 10pt;
+}
+
+div {
+  margin-bottom: 4px;
+}
+
+hr {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+button {
+  margin-top: 10px;
+}

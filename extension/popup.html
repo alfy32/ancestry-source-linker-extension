@@ -1,83 +1,58 @@
 <!DOCTYPE html>
-<html style=''>
+<html>
 <head>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/popup.css" rel="stylesheet">
+
   <script src='popup.js'></script>
   <script src='source.js'></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
-<style>
-  body {
-    padding:10px 15px;
-  }
-  input[type="text"], textarea {
-    width: 100%;
-  }
+<body>
+<div>
 
-  label {
-    font-size: 10pt;
-  }
+  <form>
+    <div>
+      <label for="title">Source Title (Required)</label>
+      <input class="form-control" id="title" type="text" placeholder="Example: England, Death Certificate of Hugh S. Smith - (1832-1912)"/>
+    </div>
 
-  div {
-    margin-bottom: 4px;
-  }
+    <div>
+      <label for="uri">Web Page (Link to the Record)</label>
+      <input class="form-control" id="uri" type="text" placeholder=""/>
+    </div>
 
-  hr {
-    margin-bottom: 5px;
-    margin-top: 0px;
-  }
+    <div>
+      <label for="citation">Where the Record Is Found (Citation)</label>
+      <textarea class="form-control" id="citation" rows="3" placeholder=""></textarea>
+    </div>
 
-  button {
-    margin-top: 10px;
-  }
-</style>
-<body style="width:500px;">
-  <div>
-    <!-- <h2>Create a Source</h2> -->
-    <!-- <h4>Identify the record you have found. This will be called a "Source."</h3> -->
+    <div>
+      <label for="notes">Describe the Record (Notes)</label>
+      <textarea class="form-control" id="notes" rows="5" placeholder=""></textarea>
+    </div>
 
-    <form>
-      <div>
-        <label for="title">Source Title (Required)</label>
-        <input class="form-control" id="title" type="text" placeholder="Example: England, Death Certificate of Hugh S. Smith - (1832-1912)"/>
-      </div>
+    <div>
+      <input id="addToSourceBox" type="checkbox"/>
+      <label for="addToSourceBox">Add Source to My Source Box</label>
+    </div>
 
-      <div>
-        <label for="uri">Web Page (Link to the Record)</label>
-        <input class="form-control" id="uri" type="text" placeholder="" />
-      </div>
+    <hr>
 
-      <div>
-        <label for="citation">Where the Record Is Found (Citation)</label>
-        <textarea class="form-control" id="citation" rows="3" placeholder=""></textarea>
-      </div>
+    <div>
+      <label for="personIds">PersonIds (comma separated list)</label>
+      <input class="form-control" id="personIds" type="text" placeholder=""/>
+    </div>
 
-      <div>
-        <label for="notes">Describe the Record (Notes)</label>
-        <textarea class="form-control" id="notes" rows="5" placeholder=""></textarea>
-      </div>
+    <div>
+      <label for="reason">Reason to Attach Source</label>
+      <input class="form-control" id="reason" type="text" placeholder="Explain why you attached this source to the individual."/>
+    </div>
 
-      <div>
-        <input id="addToSourceBox" type="checkbox"/>
-        <label for="addToSourceBox">Add Source to My Source Box</label>
-      </div>
+    <div>
+      <button id='submit' type="button" class="btn btn-block btn-primary"><span id='message'>Attach</span></button>
+    </div>
+  </form>
 
-      <hr>
-
-      <div>
-        <label for="personIds">PersonIds (comma seperated list)</label>
-        <input class="form-control" id="personIds" type="text" placeholder=""/>
-      </div>
-
-      <div>
-        <label for="reason">Reason to Attach Source</label>
-        <input class="form-control" id="reason" type="text" placeholder="Explain why you attached this source to the individual."/>
-      </div>
-
-      <div>
-        <button id='submit' type="button" class="btn btn-block btn-primary"><span id='message'>Attatch</span></button>
-      </div>
-    </form>
-
-  </div>
+</div>
 </body>
 </html>
