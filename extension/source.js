@@ -5,7 +5,7 @@ var Sources = {};
   console.log("Loading source.js");
 
   var cookieHost = "https://familysearch.org",
-      ctHost = cookieHost + "/ct",
+      tfHost = cookieHost + "/tf",
       linksHost = cookieHost + "/links",
       locale = "en",
       sessionId,
@@ -155,23 +155,33 @@ var Sources = {};
 
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-      if (xhttp.readyState == 4 && xhttp.status == 201) {
-        handleReferenceResponse(xhttp.getResponseHeader("X-Entity-ID"));
+      if (xhttp.readyState == 4 && xhttp.status == 204) {
+        handleReferenceResponse(xhttp.getResponseHeader("X-EntityRef-ID"));
       }
       else if (xhttp.readyState == 4 && xhttp.status == 401) {
         Sources.statusUpdate(sessionExpiredMessage);
       }
     };
-    xhttp.open("POST", ctHost + "/persons/" + personId + "/references/reference", true);
+    xhttp.open("POST", tfHost + "/person/" + personId + "/entityref", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.setRequestHeader("Authorization", "Bearer " + sessionId);
+    // TODO consider adding
+    // "affectedConclusionTypes": [
+    //   "http://gedcomx.org/Name",
+    //   "http://gedcomx.org/Gender",
+    //   "http://gedcomx.org/Birth",
+    //   "http://gedcomx.org/Christening",
+    //   "http://gedcomx.org/Death",
+    //   "http://gedcomx.org/Burial"
+    // ],
     xhttp.send(JSON.stringify({
-      "entityId": personId,
-      "justification": {
-        "reason": reason
+      "attribution": {
+        "changeMessage": reason
       },
-      "referenceType": "SOURCE",
-      "referencedResourceUri": sourceId
+      "value": {
+        "type": "SOURCE",
+        "uri": sourceId
+      }
     }));
   }
 
