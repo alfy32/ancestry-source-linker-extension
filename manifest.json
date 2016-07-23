@@ -3,7 +3,7 @@
 
   "name": "Ancestry Source Linker",
   "description": "Link your sources from Ancestry to FamilySearch",
-  "version": "0.4.6",
+  "version": "0.4.7",
 
   "browser_action": {
     "default_icon": "extension/icon/icon.png",
